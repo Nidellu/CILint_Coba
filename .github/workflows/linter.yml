@@ -1,8 +1,11 @@
 ---
-name: Lint
+name: Linter
 
 on:  # yamllint disable-line rule:truthy
-  push: null
+  push:
+    branches:
+      - master
+      - main
   pull_request: null
 
 jobs:
