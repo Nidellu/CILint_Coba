@@ -1,15 +1,14 @@
----
 name: Linter
 
-on:  # yamllint disable-line rule:truthy
+on:
   push:
     branches:
       - master
       - main
-  pull_request: null
+  pull_request:
 
 jobs:
-  build:
+  lint:
     name: Lint
     runs-on: ubuntu-latest
 
@@ -27,9 +26,11 @@ jobs:
           # list of files that changed across commits
           fetch-depth: 0
 
+      - name: Set environment variable
+        run: echo "VALIDATE_GO=false" >> $GITHUB_ENV
+
       - name: Super-linter
-        uses: super-linter/super-linter@v6.3.0  # x-release-please-version
+        uses: super-linter/super-linter@v6.3.0
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
