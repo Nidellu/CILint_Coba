@@ -8,29 +8,19 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  build:
     name: Lint
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
       packages: read
-      # To report GitHub Actions status checks
       statuses: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          # super-linter needs the full git history to get the
-          # list of files that changed across commits
-          fetch-depth: 0
-
-      - name: Set environment variable
-        run: echo "VALIDATE_GO=false" >> $GITHUB_ENV
-
       - name: Super-linter
-        uses: super-linter/super-linter@v6.3.0
+        uses: super-linter/super-linter@v6.3.0 
         env:
-          # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
